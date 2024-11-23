@@ -1,14 +1,17 @@
-import { runtime } from "std-env";
+import { provider, runtime } from "std-env";
 
 export default defineEventHandler((event) => {
-  switch (runtime) {
-    case "edge-light":
-      return useGeoIPVercel(event);
-    case "netlify":
-      return useGeoIPNetlify(event);
-    case "workerd":
-      return useGeoIPCloudflare(event);
-    default:
-      return useGeoIP2Location(event);
+  if (provider === "vercel" || runtime === "edge-light") {
+    return useGeoIPVercel(event);
   }
+
+  if (provider === "netlify" || runtime === "netlify") {
+    return useGeoIPNetlify(event);
+  }
+
+  if (provider === "cloudflare_pages" || runtime === "workerd") {
+    return useGeoIPCloudflare(event);
+  }
+
+  return useGeoIP2Location(event);
 });

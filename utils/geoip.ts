@@ -26,8 +26,8 @@ export interface GeoIPCloudflare extends GeoIP {
 
 export interface GeoIPVercel extends GeoIP {
   continent_code: string;
-  country_name: string;
-  region_name: string;
+  country_code: string;
+  region_code: string;
   city_name: string;
   latitude: number;
   lontitude: number;
@@ -112,8 +112,8 @@ export function useGeoIPVercel(event: H3Event): GeoIPVercel {
     type: "vercel",
     ip: headers["x-forwarded-for"],
     continent_code: headers["x-vercel-ip-continent"],
-    country_name: geo.country,
-    region_name: geo.countryRegion,
+    country_code: geo.country,
+    region_code: geo.countryRegion,
     city_name: geo.city,
     latitude: Number(geo.latitude),
     lontitude: Number(geo.longitude),
