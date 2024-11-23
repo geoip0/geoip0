@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  db0:
+    hash: zx4bl7goxuxq5f32jvkiujzhmm
+    path: patches/db0.patch
+
 importers:
   .:
     devDependencies:
@@ -4072,7 +4077,7 @@ snapshots:
     dependencies:
       minimist: 1.2.8
 
-  db0@0.1.4(drizzle-orm@0.36.4(@types/pg@8.11.10)(pg@8.13.1)):
+  db0@0.1.4(patch_hash=zx4bl7goxuxq5f32jvkiujzhmm)(drizzle-orm@0.36.4(@types/pg@8.11.10)(pg@8.13.1)):
     optionalDependencies:
       drizzle-orm: 0.36.4(@types/pg@8.11.10)(pg@8.13.1)
 
@@ -4605,7 +4610,7 @@ snapshots:
       cookie-es: 1.2.2
       croner: 8.1.2
       crossws: 0.2.4
-      db0: 0.1.4(drizzle-orm@0.36.4(@types/pg@8.11.10)(pg@8.13.1))
+      db0: 0.1.4(patch_hash=zx4bl7goxuxq5f32jvkiujzhmm)(drizzle-orm@0.36.4(@types/pg@8.11.10)(pg@8.13.1))
       defu: 6.1.4
       destr: 2.0.3
       dot-prop: 8.0.2

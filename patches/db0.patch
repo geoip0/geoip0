@@ -1,0 +1,12 @@
+diff --git a/connectors/postgresql.mjs b/connectors/postgresql.mjs
+index b25e11f8475667723811bbe864204f87ad3b9576..cea157777130269777fe847e4e6f202539c504aa 100644
+--- a/connectors/postgresql.mjs
++++ b/connectors/postgresql.mjs
+@@ -1,4 +1,6 @@
+-import { Client } from "pg";
++// import { Client } from "pg";
++import pg from "pg";
++const { Client } = pg;
+ export default function sqliteConnector(opts) {
+   let _client;
+   function getClient() {
