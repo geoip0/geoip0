@@ -1,0 +1,45 @@
+{
+  "name": "geoip",
+  "version": "0.0.0",
+  "description": "Website for geoip, powered by Demo Macro.",
+  "private": true,
+  "scripts": {
+    "prepare": "nitropack prepare",
+    "dev": "nitropack dev",
+    "build": "nitropack build",
+    "preview": "node .output/server/index.mjs",
+    "check": "biome check . --apply-unsafe && biome format . --write",
+    "format": "prettier --write --list-different . --ignore-path .gitignore",
+    "postinstall": "nitropack prepare && githooks install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DemoMacro/geoip.git"
+  },
+  "author": {
+    "name": "Demo Macro",
+    "email": "abc@imst.xyz",
+    "url": "https://imst.xyz/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DemoMacro/geoip/issues"
+  },
+  "homepage": "https://github.com/DemoMacro/geoip#readme",
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "@funish/githooks": "0.0.5",
+    "@funish/githooks-config": "0.0.2",
+    "@funish/lint": "0.0.2",
+    "@netlify/edge-functions": "2.11.1",
+    "@types/pg": "8.11.10",
+    "@vercel/functions": "1.5.0",
+    "drizzle-orm": "0.36.4",
+    "ip2location-nodejs": "9.6.1",
+    "nitropack": "2.9.7",
+    "pg": "8.13.1",
+    "prettier": "3.3.2",
+    "std-env": "3.8.0"
+  },
+  "packageManager": "pnpm@9.14.2+sha512.6e2baf77d06b9362294152c851c4f278ede37ab1eba3a55fda317a4a17b209f4dbb973fb250a77abc463a341fcb1f17f17cfa24091c4eb319cda0d9b84278387"
+}
