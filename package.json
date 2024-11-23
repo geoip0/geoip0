@@ -8,7 +8,7 @@
     "dev": "nitropack dev",
     "build": "nitropack build",
     "preview": "node .output/server/index.mjs",
-    "check": "biome check . --apply-unsafe && biome format . --write",
+    "check": "biome check .  --write --unsafe && biome format . --write",
     "format": "prettier --write --list-different . --ignore-path .gitignore",
     "postinstall": "nitropack prepare && githooks install"
   },
