@@ -81,14 +81,14 @@ export async function useGeoIP2Location(
     ? {
         type: "IP2Location",
         ip,
-        country_name: data[0].country_name,
-        country_code: data[0].country_code,
-        region_name: data[0].region_name,
-        city_name: data[0].city_name,
-        latitude: data[0].latitude,
-        longitude: data[0].longitude,
-        time_zone: data[0].time_zone,
-        zip_code: data[0].zip_code,
+        country_name: data.country_name,
+        country_code: data.country_code,
+        region_name: data.region_name,
+        city_name: data.city_name,
+        latitude: data.latitude,
+        longitude: data.longitude,
+        time_zone: data.time_zone,
+        zip_code: data.zip_code,
       }
     : { type: "default", ip };
 }
