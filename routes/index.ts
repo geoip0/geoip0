@@ -1,11 +1,13 @@
 import { provider, runtime } from "std-env";
 
 export default defineEventHandler((event) => {
+  const headers = getHeaders(event);
+
   if (provider === "vercel" || runtime === "edge-light") {
     return useGeoIPVercel(event);
   }
 
-  if (provider === "netlify" || runtime === "netlify") {
+  if (provider === "netlify" || runtime === "netlify" || headers["x-nf-geo"]) {
     return useGeoIPNetlify(event);
   }
 

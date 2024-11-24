@@ -21,7 +21,7 @@ export interface GeoIP2Location extends GeoIP {
 }
 
 export interface GeoIPCloudflare extends GeoIP {
-  country_name: string;
+  country_code: string;
 }
 
 export interface GeoIPVercel extends GeoIP {
@@ -98,8 +98,8 @@ export function useGeoIPCloudflare(event: H3Event): GeoIPCloudflare {
 
   return {
     type: "cloudflare",
-    ip: headers["cf-connecting-ip"],
-    country_name: headers["cf-ipcountry"],
+    ip: headers["cf-connecting-ip"] || headers["x-forwarded-for"],
+    country_code: headers["cf-ipcountry"],
   };
 }
 
@@ -108,6 +108,9 @@ export function useGeoIPVercel(event: H3Event): GeoIPVercel {
 
   const geo = geolocation(event);
 
+  const geoLatitude = Number(geo.latitude) || undefined;
+  const geoLongitude = Number(geo.longitude) || undefined;
+
   return {
     type: "vercel",
     ip: headers["x-forwarded-for"],
@@ -115,8 +118,8 @@ export function useGeoIPVercel(event: H3Event): GeoIPVercel {
     country_code: geo.country,
     region_code: geo.countryRegion,
     city_name: geo.city,
-    latitude: Number(geo.latitude),
-    lontitude: Number(geo.longitude),
+    latitude: geoLatitude,
+    lontitude: geoLongitude,
     time_zone: headers["x-vercel-ip-timezone"],
     flag: geo.flag,
   };
