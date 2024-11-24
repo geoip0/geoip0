@@ -1,7 +1,7 @@
 {
   "name": "geoip0",
   "version": "0.0.0",
-  "description": "Website for geoip, powered by Demo Macro.",
+  "description": "Self-hosted Geo IP api services for serverless, powered by Demo Macro.",
   "private": true,
   "scripts": {
     "prepare": "nitropack prepare",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DemoMacro/geoip0.git"
+    "url": "git+https://github.com/geoip0/geoip0.git"
   },
   "author": {
     "name": "Demo Macro",
@@ -23,9 +23,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DemoMacro/geoip0/issues"
+    "url": "https://github.com/geoip0/geoip0/issues"
   },
-  "homepage": "https://github.com/DemoMacro/geoip0#readme",
+  "homepage": "https://www.geoip0.com/",
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
     "@funish/githooks": "0.0.5",
