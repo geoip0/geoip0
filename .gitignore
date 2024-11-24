@@ -135,3 +135,6 @@ dist
 
 # edgio
 .edgio
+
+# netlify
+.netlify

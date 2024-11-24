@@ -1,5 +1,4 @@
 import { drizzle } from "db0/integrations/drizzle/index";
-import { eq } from "drizzle-orm";
 import {
   bigint,
   char,
@@ -31,5 +30,5 @@ export const ip2location_db11 = pgTable(
     ip2location_db1_pkey: primaryKey({
       columns: [table.ip_from, table.ip_to],
     }),
-  }),
+  })
 );

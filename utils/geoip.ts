@@ -46,7 +46,7 @@ export interface GeoIPNetlify extends GeoIP {
 
 export async function useGeoIP2Location(
   event: H3Event,
-  paramIP?: string,
+  paramIP?: string
 ): Promise<GeoIP2Location | GeoIP> {
   const ipTools = new IPTools();
   const ip = ipTools.isIPV4(paramIP)
@@ -72,8 +72,8 @@ export async function useGeoIP2Location(
     .where(
       and(
         lte(ip2location_db11.ip_from, decimal),
-        gte(ip2location_db11.ip_to, decimal),
-      ),
+        gte(ip2location_db11.ip_to, decimal)
+      )
     )
     .limit(1);
 
@@ -123,18 +123,18 @@ export function useGeoIPVercel(event: H3Event): GeoIPVercel {
 }
 
 export function useGeoIPNetlify(event: H3Event): GeoIPNetlify {
-  const context = event.context as Context;
+  const headers = getHeaders(event);
 
-  const geo = context.geo;
+  const geo = JSON.parse(atob(headers["x-nf-geo"])) as Context["geo"];
 
   return {
     type: "netlify",
-    ip: context.ip,
-    country_name: geo.country.name,
-    country_code: geo.country.code,
-    city_name: geo.city,
-    latitude: geo.latitude,
-    lontitude: geo.longitude,
-    time_zone: geo.timezone,
+    ip: headers["x-forwarded-for"],
+    country_name: geo?.country?.name,
+    country_code: geo?.country?.code,
+    city_name: geo?.city,
+    latitude: geo?.latitude,
+    lontitude: geo?.longitude,
+    time_zone: geo?.timezone,
   };
 }
