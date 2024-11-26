@@ -46,7 +46,7 @@ export interface GeoIPNetlify extends GeoIP {
 
 export async function getGeoIP2Location(
   event: H3Event,
-  paramIP?: string,
+  paramIP?: string
 ): Promise<GeoIP2Location | GeoIP> {
   const ipTools = new IPTools();
   const ip = ipTools.isIPV4(paramIP)
@@ -74,8 +74,8 @@ export async function getGeoIP2Location(
     .where(
       and(
         lte(ip2location_db11.ip_from, decimal),
-        gte(ip2location_db11.ip_to, decimal),
-      ),
+        gte(ip2location_db11.ip_to, decimal)
+      )
     )
     .limit(1);
 
