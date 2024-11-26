@@ -44,16 +44,22 @@ export interface GeoIPNetlify extends GeoIP {
   time_zone: string;
 }
 
+export const getIP = (event: H3Event) => {
+  const headers = getHeaders(event);
+
+  return (
+    getRequestIP(event, { xForwardedFor: true }) ||
+    headers["cf-connecting-ip"] ||
+    headers["x-real-ip"]
+  );
+};
+
 export async function getGeoIP2Location(
   event: H3Event,
   paramIP?: string
 ): Promise<GeoIP2Location | GeoIP> {
   const ipTools = new IPTools();
-  const ip = ipTools.isIPV4(paramIP)
-    ? paramIP
-    : getRequestIP(event, {
-        xForwardedFor: true,
-      });
+  const ip = ipTools.isIPV4(paramIP) ? paramIP : getIP(event);
   const decimal = ipTools.ipV4ToDecimal(ip);
   const {
     public: {
@@ -100,11 +106,7 @@ export function getGeoIPCloudflare(event: H3Event): GeoIPCloudflare {
 
   return {
     type: "cloudflare",
-    ip:
-      headers["cf-connecting-ip"] ||
-      getRequestIP(event, {
-        xForwardedFor: true,
-      }),
+    ip: headers["cf-connecting-ip"] || getIP(event),
     country_code: headers["cf-ipcountry"],
   };
 }
@@ -119,9 +121,7 @@ export function getGeoIPVercel(event: H3Event): GeoIPVercel {
 
   return {
     type: "vercel",
-    ip: getRequestIP(event, {
-      xForwardedFor: true,
-    }),
+    ip: getIP(event),
     continent_code: headers["x-vercel-ip-continent"],
     country_code: geo.country,
     region_code: geo.countryRegion,
@@ -140,9 +140,7 @@ export function getGeoIPNetlify(event: H3Event): GeoIPNetlify {
 
   return {
     type: "netlify",
-    ip: getRequestIP(event, {
-      xForwardedFor: true,
-    }),
+    ip: getIP(event),
     country_name: geo?.country?.name,
     country_code: geo?.country?.code,
     city_name: geo?.city,
