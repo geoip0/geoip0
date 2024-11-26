@@ -54,52 +54,66 @@ export const getIP = (event: H3Event) => {
   );
 };
 
-export async function getGeoIP2Location(
-  event: H3Event,
-  paramIP?: string
-): Promise<GeoIP2Location | GeoIP> {
-  const ipTools = new IPTools();
-  const ip = ipTools.isIPV4(paramIP) ? paramIP : getIP(event);
-  const decimal = ipTools.ipV4ToDecimal(ip);
-  const {
-    public: {
-      postgres: { url },
-    },
-  } = useRuntimeConfig();
+export const getGeoIP2Location = defineCachedFunction(
+  async (event: H3Event, paramIP?: string) => {
+    {
+      const ipTools = new IPTools();
+      const ip = ipTools.isIPV4(paramIP) ? paramIP : getIP(event);
+      const decimal = ipTools.ipV4ToDecimal(ip);
+      const {
+        public: {
+          postgres: { url },
+        },
+      } = useRuntimeConfig();
 
-  if (!url) {
-    return {
-      type: "default",
-      ip,
-    };
-  }
-
-  const [data] = await drizzleDb
-    .select()
-    .from(ip2location_db11)
-    .where(
-      and(
-        lte(ip2location_db11.ip_from, decimal),
-        gte(ip2location_db11.ip_to, decimal)
-      )
-    )
-    .limit(1);
-
-  return data
-    ? {
-        type: "IP2Location",
-        ip,
-        country_name: data.country_name,
-        country_code: data.country_code,
-        region_name: data.region_name,
-        city_name: data.city_name,
-        latitude: data.latitude,
-        longitude: data.longitude,
-        time_zone: data.time_zone,
-        zip_code: data.zip_code,
+      if (!url) {
+        return {
+          type: "default",
+          ip,
+        };
       }
-    : { type: "default", ip };
-}
+
+      const [data] = await drizzleDb
+        .select()
+        .from(ip2location_db11)
+        .where(
+          and(
+            lte(ip2location_db11.ip_from, decimal),
+            gte(ip2location_db11.ip_to, decimal),
+          ),
+        )
+        .limit(1);
+
+      if (data) {
+        const geoIP2Location: GeoIP2Location = {
+          type: "IP2Location",
+          ip,
+          country_name: data.country_name,
+          country_code: data.country_code,
+          region_name: data.region_name,
+          city_name: data.city_name,
+          latitude: data.latitude,
+          longitude: data.longitude,
+          time_zone: data.time_zone,
+          zip_code: data.zip_code,
+        };
+
+        return geoIP2Location;
+      }
+
+      const geoIP: GeoIP = { type: "default", ip };
+
+      return geoIP;
+    }
+  },
+  {
+    name: "ip2location",
+    group: "geoip",
+    getKey: (event: H3Event) => getIP(event),
+    maxAge: 60 * 60 * 24 * 14, // 14 days
+    staleMaxAge: 60 * 60 * 24 * 7, // 7 days
+  },
+);
 
 export function getGeoIPCloudflare(event: H3Event): GeoIPCloudflare {
   const headers = getHeaders(event);
