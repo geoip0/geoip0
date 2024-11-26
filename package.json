@@ -1,7 +1,7 @@
 {
   "name": "geoip0",
   "version": "0.0.0",
-  "description": "Self-hosted Geo IP api services for serverless, powered by Demo Macro.",
+  "description": "Self-hosted Geo IP Zero Configuration API Services for Serverless.",
   "private": true,
   "scripts": {
     "prepare": "nitropack prepare",
