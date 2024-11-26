@@ -1,7 +1,7 @@
 export default defineEventHandler((event) => {
   try {
-    return useGeoIPNetlify(event);
+    return getGeoIPNetlify(event);
   } catch (error) {
-    return useGeoIP2Location(event);
+    return getGeoIP2Location(event);
   }
 });

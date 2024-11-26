@@ -44,14 +44,16 @@ export interface GeoIPNetlify extends GeoIP {
   time_zone: string;
 }
 
-export async function useGeoIP2Location(
+export async function getGeoIP2Location(
   event: H3Event,
-  paramIP?: string,
+  paramIP?: string
 ): Promise<GeoIP2Location | GeoIP> {
   const ipTools = new IPTools();
   const ip = ipTools.isIPV4(paramIP)
     ? paramIP
-    : getHeaders(event)["x-forwarded-for"];
+    : getRequestIP(event, {
+        xForwardedFor: true,
+      });
   const decimal = ipTools.ipV4ToDecimal(ip);
   const {
     public: {
@@ -72,8 +74,8 @@ export async function useGeoIP2Location(
     .where(
       and(
         lte(ip2location_db11.ip_from, decimal),
-        gte(ip2location_db11.ip_to, decimal),
-      ),
+        gte(ip2location_db11.ip_to, decimal)
+      )
     )
     .limit(1);
 
@@ -93,17 +95,21 @@ export async function useGeoIP2Location(
     : { type: "default", ip };
 }
 
-export function useGeoIPCloudflare(event: H3Event): GeoIPCloudflare {
+export function getGeoIPCloudflare(event: H3Event): GeoIPCloudflare {
   const headers = getHeaders(event);
 
   return {
     type: "cloudflare",
-    ip: headers["cf-connecting-ip"] || headers["x-forwarded-for"],
+    ip:
+      headers["cf-connecting-ip"] ||
+      getRequestIP(event, {
+        xForwardedFor: true,
+      }),
     country_code: headers["cf-ipcountry"],
   };
 }
 
-export function useGeoIPVercel(event: H3Event): GeoIPVercel {
+export function getGeoIPVercel(event: H3Event): GeoIPVercel {
   const headers = getHeaders(event);
 
   const geo = geolocation(event);
@@ -113,7 +119,9 @@ export function useGeoIPVercel(event: H3Event): GeoIPVercel {
 
   return {
     type: "vercel",
-    ip: headers["x-forwarded-for"],
+    ip: getRequestIP(event, {
+      xForwardedFor: true,
+    }),
     continent_code: headers["x-vercel-ip-continent"],
     country_code: geo.country,
     region_code: geo.countryRegion,
@@ -125,14 +133,16 @@ export function useGeoIPVercel(event: H3Event): GeoIPVercel {
   };
 }
 
-export function useGeoIPNetlify(event: H3Event): GeoIPNetlify {
+export function getGeoIPNetlify(event: H3Event): GeoIPNetlify {
   const headers = getHeaders(event);
 
   const geo = JSON.parse(atob(headers["x-nf-geo"])) as Context["geo"];
 
   return {
     type: "netlify",
-    ip: headers["x-forwarded-for"],
+    ip: getRequestIP(event, {
+      xForwardedFor: true,
+    }),
     country_name: geo?.country?.name,
     country_code: geo?.country?.code,
     city_name: geo?.city,
