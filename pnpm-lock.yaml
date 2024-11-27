@@ -51,6 +51,9 @@ importers:
       std-env:
         specifier: 3.8.0
         version: 3.8.0
+      whoiser:
+        specifier: 1.18.0
+        version: 1.18.0
 
 packages:
   "@biomejs/biome@1.8.3":
@@ -2725,6 +2728,13 @@ packages:
       }
     engines: { node: ">= 0.6.0" }
 
+  punycode@2.3.1:
+    resolution:
+      {
+        integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==,
+      }
+    engines: { node: ">=6" }
+
   queue-microtask@1.2.3:
     resolution:
       {
@@ -3343,6 +3353,13 @@ packages:
       }
     engines: { node: ">= 8" }
     hasBin: true
+
+  whoiser@1.18.0:
+    resolution:
+      {
+        integrity: sha512-QRIGreBuouc8d9i+UVMFqYJSiG7gaoaGX8nKugYDGqnuNLLgjDBwmlKODOIGHveBawza3Kfkk/OuM9VsTUYwaA==,
+      }
+    engines: { node: ">=15.0.0" }
 
   wide-align@1.1.5:
     resolution:
@@ -4869,6 +4886,8 @@ snapshots:
 
   process@0.11.10: {}
 
+  punycode@2.3.1: {}
+
   queue-microtask@1.2.3: {}
 
   queue-tick@1.0.1: {}
@@ -5245,6 +5264,10 @@ snapshots:
   which@2.0.2:
     dependencies:
       isexe: 2.0.0
+
+  whoiser@1.18.0:
+    dependencies:
+      punycode: 2.3.1
 
   wide-align@1.1.5:
     dependencies:

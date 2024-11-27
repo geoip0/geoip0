@@ -1,5 +1,5 @@
 export default defineEventHandler((event) => {
   const { ip } = event.context.params;
 
-  return useGeoIP2Location(event, ip);
+  return ip ? getGeoIP2Location(event, ip) : getGeoIP2Location(event);
 });

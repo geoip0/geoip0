@@ -44,66 +44,88 @@ export interface GeoIPNetlify extends GeoIP {
   time_zone: string;
 }
 
-export async function useGeoIP2Location(
-  event: H3Event,
-  paramIP?: string,
-): Promise<GeoIP2Location | GeoIP> {
-  const ipTools = new IPTools();
-  const ip = ipTools.isIPV4(paramIP)
-    ? paramIP
-    : getHeaders(event)["x-forwarded-for"];
-  const decimal = ipTools.ipV4ToDecimal(ip);
-  const {
-    public: {
-      postgres: { url },
-    },
-  } = useRuntimeConfig();
+export const getIP = (event: H3Event) => {
+  const headers = getHeaders(event);
 
-  if (!url) {
-    return {
-      type: "default",
-      ip,
-    };
-  }
+  return (
+    getRequestIP(event, { xForwardedFor: true }) ||
+    headers["cf-connecting-ip"] ||
+    headers["x-real-ip"]
+  );
+};
 
-  const [data] = await drizzleDb
-    .select()
-    .from(ip2location_db11)
-    .where(
-      and(
-        lte(ip2location_db11.ip_from, decimal),
-        gte(ip2location_db11.ip_to, decimal),
-      ),
-    )
-    .limit(1);
+export const getGeoIP2Location = defineCachedFunction(
+  async (event: H3Event, paramIP?: string) => {
+    {
+      const ipTools = new IPTools();
+      const ip = ipTools.isIPV4(paramIP) ? paramIP : getIP(event);
+      const decimal = ipTools.ipV4ToDecimal(ip);
+      const {
+        public: {
+          postgres: { url },
+        },
+      } = useRuntimeConfig();
 
-  return data
-    ? {
-        type: "IP2Location",
-        ip,
-        country_name: data.country_name,
-        country_code: data.country_code,
-        region_name: data.region_name,
-        city_name: data.city_name,
-        latitude: data.latitude,
-        longitude: data.longitude,
-        time_zone: data.time_zone,
-        zip_code: data.zip_code,
+      if (!url) {
+        return {
+          type: "default",
+          ip,
+        };
       }
-    : { type: "default", ip };
-}
 
-export function useGeoIPCloudflare(event: H3Event): GeoIPCloudflare {
+      const [data] = await drizzleDb
+        .select()
+        .from(ip2location_db11)
+        .where(
+          and(
+            lte(ip2location_db11.ip_from, decimal),
+            gte(ip2location_db11.ip_to, decimal),
+          ),
+        )
+        .limit(1);
+
+      if (data) {
+        const geoIP2Location: GeoIP2Location = {
+          type: "IP2Location",
+          ip,
+          country_name: data.country_name,
+          country_code: data.country_code,
+          region_name: data.region_name,
+          city_name: data.city_name,
+          latitude: data.latitude,
+          longitude: data.longitude,
+          time_zone: data.time_zone,
+          zip_code: data.zip_code,
+        };
+
+        return geoIP2Location;
+      }
+
+      const geoIP: GeoIP = { type: "default", ip };
+
+      return geoIP;
+    }
+  },
+  {
+    name: "ip2location",
+    group: "geoip",
+    getKey: (event: H3Event) => getIP(event),
+    maxAge: 60 * 60 * 24 * 14, // 14 days
+    staleMaxAge: 60 * 60 * 24 * 7, // 7 days
+  },
+);
+
+export function getGeoIPCloudflare(event: H3Event): GeoIPCloudflare {
   const headers = getHeaders(event);
 
   return {
     type: "cloudflare",
-    ip: headers["cf-connecting-ip"] || headers["x-forwarded-for"],
+    ip: headers["cf-connecting-ip"] || getIP(event),
     country_code: headers["cf-ipcountry"],
   };
 }
 
-export function useGeoIPVercel(event: H3Event): GeoIPVercel {
+export function getGeoIPVercel(event: H3Event): GeoIPVercel {
   const headers = getHeaders(event);
 
   const geo = geolocation(event);
@@ -113,7 +135,7 @@ export function useGeoIPVercel(event: H3Event): GeoIPVercel {
 
   return {
     type: "vercel",
-    ip: headers["x-forwarded-for"],
+    ip: getIP(event),
     continent_code: headers["x-vercel-ip-continent"],
     country_code: geo.country,
     region_code: geo.countryRegion,
@@ -125,14 +147,14 @@ export function useGeoIPVercel(event: H3Event): GeoIPVercel {
   };
 }
 
-export function useGeoIPNetlify(event: H3Event): GeoIPNetlify {
+export function getGeoIPNetlify(event: H3Event): GeoIPNetlify {
   const headers = getHeaders(event);
 
   const geo = JSON.parse(atob(headers["x-nf-geo"])) as Context["geo"];
 
   return {
     type: "netlify",
-    ip: headers["x-forwarded-for"],
+    ip: getIP(event),
     country_name: geo?.country?.name,
     country_code: geo?.country?.code,
     city_name: geo?.city,

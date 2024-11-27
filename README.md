@@ -3,7 +3,7 @@
 ![GitHub](https://img.shields.io/github/license/geoip0/geoip0)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://www.contributor-covenant.org/version/2/1/code_of_conduct/)
 
-> Self-hosted Geo IP api services for serverless, powered by Demo Macro.
+> Self-hosted Geo IP Zero Configuration API Services for Serverless.
 
 ## About GeoIP0
 
