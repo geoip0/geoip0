@@ -30,5 +30,5 @@ export const ip2location_db11 = pgTable(
     ip2location_db1_pkey: primaryKey({
       columns: [table.ip_from, table.ip_to],
     }),
-  })
+  }),
 );

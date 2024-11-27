@@ -11,16 +11,22 @@ GeoIP0 is a useful tool for looking up geolocation information corresponding to 
 
 More information about GeoIP0 can be found [here](https://www.geoip0.com/).
 
-## Supported Serverless Providers
+## Features Supported
 
-- [Vercel](https://vercel.geoip0.com/)
-- [Netlify](https://netlify.geoip0.com/)
-- [Cloudflare Pages](https://cloudflare.geoip0.com/)
-- More to come
+|         | [Vercel](https://vercel.geoip0.com/) | [Netlify](https://netlify.geoip0.com/) | [Cloudflare Pages](https://cloudflare.geoip0.com/) |
+| ------- | ------------------------------------ | -------------------------------------- | -------------------------------------------------- |
+| Headers | ✅                                   | ✅                                     | ✅                                                 |
+| IP      | ✅                                   | ✅                                     | ✅                                                 |
+| GeoIP   | ✅                                   | ✅                                     | ✅                                                 |
+| DNS     | ✅                                   | ✅                                     | ✅                                                 |
+| WHOIS   | ✅                                   | ✅                                     | ❌                                                 |
 
-## IP Geolocation Data Source
+## IP Geolocation Database
 
-- [IP2Location Lite](https://lite.ip2location.com/)
+- [] [GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data/)
+- [x] [IP2Location Lite](https://lite.ip2location.com/)
+- [] [DBIP Lite](https://db-ip.com/db/lite.php)
+- [] [CZ88 Community Edition IP Database](https://cz88.net/geo-public)
 
 ## License
 
