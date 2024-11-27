@@ -79,8 +79,8 @@ export const getGeoIP2Location = defineCachedFunction(
         .where(
           and(
             lte(ip2location_db11.ip_from, decimal),
-            gte(ip2location_db11.ip_to, decimal),
-          ),
+            gte(ip2location_db11.ip_to, decimal)
+          )
         )
         .limit(1);
 
@@ -109,10 +109,9 @@ export const getGeoIP2Location = defineCachedFunction(
   {
     name: "ip2location",
     group: "geoip",
-    getKey: (event: H3Event) => getIP(event),
     maxAge: 60 * 60 * 24 * 14, // 14 days
     staleMaxAge: 60 * 60 * 24 * 7, // 7 days
-  },
+  }
 );
 
 export function getGeoIPCloudflare(event: H3Event): GeoIPCloudflare {
