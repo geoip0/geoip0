@@ -8,7 +8,7 @@
     "dev": "nitropack dev",
     "build": "nitropack build",
     "preview": "node .output/server/index.mjs",
-    "check": "biome check .  --write --unsafe && biome format . --write",
+    "check": "biome check . --write --unsafe && biome format . --write",
     "format": "prettier --write --list-different . --ignore-path .gitignore",
     "postinstall": "nitropack prepare && githooks install"
   },
@@ -32,15 +32,18 @@
     "@funish/githooks-config": "0.0.2",
     "@funish/lint": "0.0.2",
     "@netlify/edge-functions": "2.11.1",
+    "@types/node": "22.10.1",
     "@types/pg": "8.11.10",
     "@vercel/functions": "1.5.0",
+    "drizzle-kit": "0.28.1",
     "drizzle-orm": "0.36.4",
     "ip2location-nodejs": "9.6.1",
     "nitropack": "2.9.7",
     "pg": "8.13.1",
     "prettier": "3.3.2",
     "std-env": "3.8.0",
-    "whoiser": "1.18.0"
+    "unbuild": "2.0.0",
+    "vitest": "2.1.6"
   },
   "packageManager": "pnpm@9.14.2+sha512.6e2baf77d06b9362294152c851c4f278ede37ab1eba3a55fda317a4a17b209f4dbb973fb250a77abc463a341fcb1f17f17cfa24091c4eb319cda0d9b84278387",
   "pnpm": {

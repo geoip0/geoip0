@@ -3,12 +3,33 @@ import { defineNitroConfig } from "nitropack/config";
 export default defineNitroConfig({
   experimental: {
     database: true,
+    openAPI: true,
   },
+
   routeRules: {
     "/**": {
       cors: true,
     },
+    "/rdap/asn/**": {
+      redirect: "/rdap/autnum/**",
+    },
+    "/rdap/dns/**": {
+      redirect: "/rdap/domain/**",
+    },
+    "/rdap/ns/**": {
+      redirect: "/rdap/nameserver/**",
+    },
+    "/rdap/ipv4/**": {
+      redirect: "/rdap/ip/**",
+    },
+    "/rdap/ipv6/**": {
+      redirect: "/rdap/ip/**",
+    },
+    "/rdap/object-tags/**": {
+      redirect: "/rdap/entity/**",
+    },
   },
+
   typescript: {
     tsConfig: {
       compilerOptions: {
@@ -16,6 +37,7 @@ export default defineNitroConfig({
       },
     },
   },
+
   runtimeConfig: {
     public: {
       postgres: {
@@ -23,6 +45,7 @@ export default defineNitroConfig({
       },
     },
   },
+
   database: {
     default: {
       connector: "postgresql",
@@ -31,7 +54,8 @@ export default defineNitroConfig({
       },
     },
   },
+
   rollupConfig: {
-    external: ["pg-native", "cloudflare:sockets"],
+    external: ["pg-native"],
   },
 });

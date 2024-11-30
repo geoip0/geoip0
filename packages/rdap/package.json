@@ -1,0 +1,40 @@
+{
+  "name": "rdap",
+  "version": "0.0.0",
+  "description": "Programmatically obtaining rdap query results.",
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "prepack": "unbuild"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geoip0/geoip0.git"
+  },
+  "keywords": [
+    "rdap"
+  ],
+  "author": {
+    "name": "Demo Macro",
+    "email": "abc@imst.xyz",
+    "url": "https://imst.xyz/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/geoip0/geoip0/issues"
+  },
+  "homepage": "https://github.com/geoip0/geoip0#readme",
+  "dependencies": {
+    "ip-cidr": "4.0.2",
+    "ofetch": "1.4.1"
+  }
+}

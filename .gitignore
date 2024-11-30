@@ -138,3 +138,6 @@ dist
 
 # netlify
 .netlify
+
+# cloudflare
+.wrangler

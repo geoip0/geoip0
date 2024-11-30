@@ -75,11 +75,11 @@ export const getGeoIP2Location = defineCachedFunction(
 
       const [data] = await drizzleDb
         .select()
-        .from(ip2location_db11)
+        .from(ip2LocationDb11)
         .where(
           and(
-            lte(ip2location_db11.ip_from, decimal),
-            gte(ip2location_db11.ip_to, decimal),
+            lte(ip2LocationDb11.ip_from, decimal),
+            gte(ip2LocationDb11.ip_to, decimal),
           ),
         )
         .limit(1);
