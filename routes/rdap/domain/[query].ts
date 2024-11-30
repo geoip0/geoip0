@@ -1,6 +1,6 @@
 import { getRdapData } from "rdap";
 
-export default defineCachedEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
   const { query } = event.context.params;
 
   return (await getRdapData("dns", query)) || rdapErrorNotice;

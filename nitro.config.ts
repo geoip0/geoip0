@@ -56,6 +56,6 @@ export default defineNitroConfig({
   },
 
   rollupConfig: {
-    external: ["pg-native"],
+    external: ["pg-native", "cloudflare:sockets"],
   },
 });
