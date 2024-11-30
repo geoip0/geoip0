@@ -6,6 +6,20 @@ export default defineNitroConfig({
     openAPI: true,
   },
 
+  compressPublicAssets: {
+    gzip: true,
+    brotli: true,
+  },
+
+  database: {
+    default: {
+      connector: "postgresql",
+      options: {
+        url: process.env.POSTGRES_URL,
+      },
+    },
+  },
+
   routeRules: {
     "/**": {
       cors: true,
@@ -30,14 +44,6 @@ export default defineNitroConfig({
     },
   },
 
-  typescript: {
-    tsConfig: {
-      compilerOptions: {
-        moduleResolution: "Node",
-      },
-    },
-  },
-
   runtimeConfig: {
     public: {
       postgres: {
@@ -46,16 +52,15 @@ export default defineNitroConfig({
     },
   },
 
-  database: {
-    default: {
-      connector: "postgresql",
-      options: {
-        url: process.env.POSTGRES_URL,
-      },
-    },
-  },
-
   rollupConfig: {
     external: ["pg-native", "cloudflare:sockets"],
+  },
+
+  typescript: {
+    tsConfig: {
+      compilerOptions: {
+        moduleResolution: "Node",
+      },
+    },
   },
 });

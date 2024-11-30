@@ -18,7 +18,7 @@ More information about GeoIP0 can be found [here](https://www.geoip0.com/).
 | Headers | ✅                                   | ✅                                     | ✅                                                 |
 | IP      | ✅                                   | ✅                                     | ✅                                                 |
 | GeoIP   | ✅                                   | ✅                                     | ✅                                                 |
-| DNS     | ✅                                   | ✅                                     | ✅                                                 |
+| DNS     | ✅                                   | ✅                                     | 🚧                                                 |
 | RDAP    | ✅                                   | ✅                                     | ✅                                                 |
 | Whois   | 🚧                                   | 🚧                                     | 🚧                                                 |
 
