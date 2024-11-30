@@ -1,6 +1,6 @@
 {
   "name": "rdap",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Programmatically obtaining rdap query results.",
   "main": "dist/index.mjs",
   "types": "dist/index.d.ts",

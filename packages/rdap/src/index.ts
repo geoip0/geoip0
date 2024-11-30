@@ -45,7 +45,7 @@ export async function getRdapServer(type: RdapMetadataType, query: string) {
     ns: "nameserver",
     ipv4: "ip",
     ipv6: "ip",
-    "object-tags": "object-tag",
+    "object-tags": "entity",
   };
 
   const service = metadata.services.find((service) =>
@@ -59,7 +59,7 @@ export async function getRdapServer(type: RdapMetadataType, query: string) {
     })
   );
 
-  return `${service?.pop()[0] || "https://api.geoip0.com/rdap/"}${suffix[type]}/${query}`;
+  return `${service.pop() || "https://api.geoip0.com/rdap/"}${suffix[type]}/${query}`;
 }
 
 export async function getRdapData(type: RdapMetadataType, query: string) {

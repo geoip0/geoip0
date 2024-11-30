@@ -54,9 +54,6 @@ importers:
       prettier:
         specifier: 3.3.2
         version: 3.3.2
-      rdap:
-        specifier: 0.0.0
-        version: 0.0.0
       std-env:
         specifier: 3.8.0
         version: 3.8.0
@@ -4336,12 +4333,6 @@ packages:
         integrity: sha512-btXCnMmRIBINM2LDZoEmOogIZU7Qe7zn4BpomSKZ/ykbLObuBdvG+mFq11DL6fjH1DRwHhrlgtYWG96bJiC7Cg==,
       }
 
-  rdap@0.0.0:
-    resolution:
-      {
-        integrity: sha512-2ktWBOIjZJaFUGZ0kwWobtG3xnMS/tYJ9lMI6Uq/drPPh/otKcJ13lE/C97bXIXW0OJvUcjKCIpz0x+0LKspNQ==,
-      }
-
   readable-stream@2.3.8:
     resolution:
       {
@@ -7625,11 +7616,6 @@ snapshots:
     dependencies:
       defu: 6.1.4
       destr: 2.0.3
-
-  rdap@0.0.0:
-    dependencies:
-      ip-cidr: 4.0.2
-      ofetch: 1.4.1
 
   readable-stream@2.3.8:
     dependencies:
