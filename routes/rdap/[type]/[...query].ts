@@ -21,11 +21,7 @@ export default defineEventHandler(async (event) => {
     ipv6: "ipv6",
   };
 
-  try {
-    return typeMap[type]
-      ? await getRdapData(typeMap[type], query, shouldBypassCache)
-      : rdapErrorNotice;
-  } catch (error) {
-    return rdapErrorNotice;
-  }
+  return typeMap[type]
+    ? await getRdapData(typeMap[type], query, shouldBypassCache)
+    : rdapErrorNotice;
 });

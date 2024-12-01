@@ -49,17 +49,17 @@ export async function getRdapServer(type: RdapMetadataType, query: string) {
   };
 
   const service = metadata.services.find((service) =>
-    service[0].some((c) => {
+    service?.[0].some((c) => {
       if (type === "dns") return c === query.split(".").pop();
       if (type === "ipv4" || type === "ipv6")
         return new ipCidr(c).contains(query);
       if (type === "asn")
         return +query >= +c.split("-")[0] && +query <= +c.split("-")[1];
       if (type === "object-tags") return c === query;
-    }),
+    })
   );
 
-  return `${service.pop() || "https://api.geoip0.com/rdap/"}${suffix[type]}/${query}`;
+  return `${service[service.length - 1]}${suffix[type]}/${query}`;
 }
 
 export async function getRdapData(type: RdapMetadataType, query: string) {
