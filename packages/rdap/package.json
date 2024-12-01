@@ -1,10 +1,12 @@
 {
   "name": "rdap",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Programmatically obtaining rdap query results.",
   "main": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -18,7 +20,9 @@
     "type": "git",
     "url": "git+https://github.com/geoip0/geoip0.git"
   },
-  "keywords": ["rdap"],
+  "keywords": [
+    "rdap"
+  ],
   "author": {
     "name": "Demo Macro",
     "email": "abc@imst.xyz",

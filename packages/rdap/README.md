@@ -23,7 +23,17 @@ $ pnpm add rdap
 ## Usage
 
 ```ts
-import {} from "rdap";
+import { getRdapData } from "rdap";
+
+const ipv4Data = await getRdapData("ip", "1.1.1.1");
+
+const ipv6Data = await getRdapData("ip", "2606:4700:4700::1111");
+
+const cidrData = await getRdapData("ip", "1.0.0.0/8");
+
+const asnData = await getRdapData("asn", "13335");
+
+const domainData = await getRdapData("domain", "geoip0.com");
 ```
 
 ## Interfaces

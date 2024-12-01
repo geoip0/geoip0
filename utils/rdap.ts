@@ -43,9 +43,9 @@ export const getRdapData = defineCachedFunction(
     shouldBypassCache(
       type: RdapMetadataType,
       query: string,
-      shouldBypassCache: boolean
+      shouldBypassCache: boolean,
     ) {
       return shouldBypassCache;
     },
-  }
+  },
 );
