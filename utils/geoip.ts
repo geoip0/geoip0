@@ -58,50 +58,94 @@ export const getGeoIP2Location = defineCachedFunction(
   async (event: H3Event, paramIP?: string) => {
     {
       const ipTools = new IPTools();
-      const ip = ipTools.isIPV4(paramIP) ? paramIP : getIP(event);
-      const decimal = ipTools.ipV4ToDecimal(ip);
+
       const {
         public: {
           postgres: { url },
         },
       } = useRuntimeConfig();
 
-      if (!url) {
-        return {
-          type: "default",
-          ip,
-        };
+      if (ipTools.isIPV4(paramIP)) {
+        console.log(paramIP);
+
+        if (!url) {
+          return {
+            type: "default",
+            ip: paramIP,
+          };
+        }
+
+        const decimal = ipTools.ipV4ToDecimal(paramIP);
+
+        const [data] = await drizzleDb
+          .select()
+          .from(ip2LocationDb11)
+          .where(
+            and(
+              lte(ip2LocationDb11.ip_from, decimal),
+              gte(ip2LocationDb11.ip_to, decimal)
+            )
+          )
+          .limit(1);
+
+        if (data) {
+          const geoIP2Location: GeoIP2Location = {
+            type: "IP2Location",
+            ip: paramIP,
+            country_name: data.country_name,
+            country_code: data.country_code,
+            region_name: data.region_name,
+            city_name: data.city_name,
+            latitude: data.latitude,
+            longitude: data.longitude,
+            time_zone: data.time_zone,
+            zip_code: data.zip_code,
+          };
+
+          return geoIP2Location;
+        }
       }
 
-      const [data] = await drizzleDb
-        .select()
-        .from(ip2LocationDb11)
-        .where(
-          and(
-            lte(ip2LocationDb11.ip_from, decimal),
-            gte(ip2LocationDb11.ip_to, decimal),
-          ),
-        )
-        .limit(1);
+      if (ipTools.isIPV6(paramIP)) {
+        if (!url) {
+          return {
+            type: "default",
+            ip: paramIP,
+          };
+        }
 
-      if (data) {
-        const geoIP2Location: GeoIP2Location = {
-          type: "IP2Location",
-          ip,
-          country_name: data.country_name,
-          country_code: data.country_code,
-          region_name: data.region_name,
-          city_name: data.city_name,
-          latitude: data.latitude,
-          longitude: data.longitude,
-          time_zone: data.time_zone,
-          zip_code: data.zip_code,
-        };
+        const decimal = ipTools.ipV6ToDecimal(paramIP);
 
-        return geoIP2Location;
+        const [data] = await drizzleDb
+          .select()
+          .from(ip2LocationDb11Ipv6)
+          .where(
+            and(
+              lte(ip2LocationDb11Ipv6.ip_from, decimal),
+              gte(ip2LocationDb11Ipv6.ip_to, decimal)
+            )
+          )
+          .limit(1);
+
+        if (data) {
+          const geoIP2Location: GeoIP2Location = {
+            type: "IP2Location",
+            ip: paramIP,
+            country_name: data.country_name,
+            country_code: data.country_code,
+            region_name: data.region_name,
+            city_name: data.city_name,
+            latitude: data.latitude,
+            longitude: data.longitude,
+            time_zone: data.time_zone,
+            zip_code: data.zip_code,
+          };
+
+          return geoIP2Location;
+        }
       }
 
-      const geoIP: GeoIP = { type: "default", ip };
+      const geoIP: GeoIP = { type: "unknown", ip: getIP(event) };
 
       return geoIP;
     }
@@ -111,7 +155,7 @@ export const getGeoIP2Location = defineCachedFunction(
     group: "geoip",
     maxAge: 60 * 60 * 24 * 14, // 14 days
     staleMaxAge: 60 * 60 * 24 * 7, // 7 days
-  },
+  }
 );
 
 export function getGeoIPCloudflare(event: H3Event): GeoIPCloudflare {

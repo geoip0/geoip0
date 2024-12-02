@@ -31,7 +31,7 @@ export const ip2LocationAsn = pgTable(
         name: "ip2location_asn_pkey",
       }),
     };
-  },
+  }
 );
 
 export const ip2LocationAsnIpv6 = pgTable(
@@ -50,7 +50,7 @@ export const ip2LocationAsnIpv6 = pgTable(
         name: "ip2location_asn_ipv6_pkey",
       }),
     };
-  },
+  }
 );
 
 export const ip2LocationDb11 = pgTable(
@@ -76,7 +76,7 @@ export const ip2LocationDb11 = pgTable(
         name: "ip2location_db11_pkey",
       }),
     };
-  },
+  }
 );
 
 export const ip2LocationDb11Ipv6 = pgTable(
@@ -90,8 +90,8 @@ export const ip2LocationDb11Ipv6 = pgTable(
     city_name: varchar("city_name", { length: 128 }).notNull(),
     latitude: real().notNull(),
     longitude: real().notNull(),
-    zipCode: varchar("zip_code", { length: 30 }).notNull(),
-    timeZone: varchar("time_zone", { length: 8 }).notNull(),
+    zip_code: varchar("zip_code", { length: 30 }).notNull(),
+    time_zone: varchar("time_zone", { length: 8 }).notNull(),
   },
   (table) => {
     return {
@@ -100,7 +100,7 @@ export const ip2LocationDb11Ipv6 = pgTable(
         name: "ip2location_db11_ipv6_pkey",
       }),
     };
-  },
+  }
 );
 
 export const ip2LocationPx11 = pgTable(
@@ -131,7 +131,7 @@ export const ip2LocationPx11 = pgTable(
         name: "ip2location_px11_pkey",
       }),
     };
-  },
+  }
 );
 
 export const ip2LocationPx11Ipv6 = pgTable(
@@ -160,5 +160,5 @@ export const ip2LocationPx11Ipv6 = pgTable(
         name: "ip2location_px11_ipv6_pkey",
       }),
     };
-  },
+  }
 );
