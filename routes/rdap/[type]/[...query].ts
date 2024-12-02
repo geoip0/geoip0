@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     "object-tags": "object-tags",
     nameserver: "ns",
     ns: "ns",
-    ip: getIPVersion(query) === "IPv4" ? "ipv4" : "ipv6",
+    ip: getIPVersion(query) === "ipv4" ? "ipv4" : "ipv6",
     ipv4: "ipv4",
     ipv6: "ipv6",
   };

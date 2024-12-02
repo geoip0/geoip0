@@ -48,8 +48,8 @@ export const getIP = (event: H3Event) => {
   const headers = getHeaders(event);
 
   return (
-    getRequestIP(event, { xForwardedFor: true }) ||
     headers["cf-connecting-ip"] ||
+    getRequestIP(event, { xForwardedFor: true }) ||
     headers["x-real-ip"]
   );
 };
