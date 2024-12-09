@@ -56,7 +56,7 @@ export async function getRdapServer(type: RdapMetadataType, query: string) {
       if (type === "asn")
         return +query >= +c.split("-")[0] && +query <= +c.split("-")[1];
       if (type === "object-tags") return c === query;
-    })
+    }),
   );
 
   return `${service[service.length - 1][0]}${suffix[type]}/${query}`;

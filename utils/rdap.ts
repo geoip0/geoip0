@@ -27,9 +27,14 @@ export const rdapErrorNotice = {
 };
 
 export const getRdapData = defineCachedFunction(
-  async (type: RdapMetadataType, query: string, shouldBypassCache = false) => {
+  async (
+    type: RdapMetadataType,
+    query: string,
+    shouldBypassCache = false,
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  ): Promise<any> => {
     try {
-      return await $fetch(`${await getRdapServer(type, query)}`);
+      return await $fetch(await getRdapServer(type, query));
     } catch (error) {
       return rdapErrorNotice;
     }
@@ -43,9 +48,9 @@ export const getRdapData = defineCachedFunction(
     shouldBypassCache(
       type: RdapMetadataType,
       query: string,
-      shouldBypassCache: boolean
+      shouldBypassCache: boolean,
     ) {
       return shouldBypassCache;
     },
-  }
+  },
 );

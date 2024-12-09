@@ -27,7 +27,6 @@ More information about GeoIP0 can be found [here](https://www.geoip0.com/).
 - [ ] [GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data/)
 - [x] [IP2Location Lite](https://lite.ip2location.com/)
 - [ ] [DBIP Lite](https://db-ip.com/db/lite.php)
-- [ ] [CZ88 Community Edition IP Database](https://cz88.net/geo-public)
 
 ## License
 
