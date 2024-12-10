@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   try {
     const records = await resolve(
       query as string,
-      (type as string).toUpperCase(),
+      (type as string).toUpperCase()
     );
 
     if (records) {

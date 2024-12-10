@@ -4,12 +4,11 @@ import { defu } from "defu";
 import { and, gte, lte } from "drizzle-orm";
 import type { H3Event } from "h3";
 import { IPTools } from "ip2location-nodejs";
-import { getDetailsFromCountryCode } from "./datasets";
 import {
   drizzleDb,
   ip2LocationDb11,
   ip2LocationDb11Ipv6,
-} from "./db/ip2Location";
+} from "~/utils/db/ip2Location";
 
 export interface GeoIP {
   type: "ipv4" | "ipv6" | string;
@@ -79,7 +78,6 @@ export const getGeoIPRdap = defineCachedFunction(
         type: getIPVersion(ip),
         database: "rdap",
         ip,
-        country_name: await getDetailsFromCountryCode(rdap.country),
         country_code: rdap.country,
       });
     }
@@ -94,7 +92,7 @@ export const getGeoIPRdap = defineCachedFunction(
     name: "rdap",
     group: "geoip",
     maxAge: 60 * 60 * 24 * 14, // 14 days
-  },
+  }
 );
 
 export const getGeoIP2Location = defineCachedFunction(
@@ -123,8 +121,8 @@ export const getGeoIP2Location = defineCachedFunction(
           .where(
             and(
               lte(ip2LocationDb11.ip_from, decimal),
-              gte(ip2LocationDb11.ip_to, decimal),
-            ),
+              gte(ip2LocationDb11.ip_to, decimal)
+            )
           )
           .limit(1);
 
@@ -160,8 +158,8 @@ export const getGeoIP2Location = defineCachedFunction(
           .where(
             and(
               lte(ip2LocationDb11Ipv6.ip_from, decimal),
-              gte(ip2LocationDb11Ipv6.ip_to, decimal),
-            ),
+              gte(ip2LocationDb11Ipv6.ip_to, decimal)
+            )
           )
           .limit(1);
 
@@ -198,7 +196,7 @@ export const getGeoIP2Location = defineCachedFunction(
     group: "geoip",
     maxAge: 60 * 60 * 24 * 14, // 14 days
     staleMaxAge: 60 * 60 * 24 * 7, // 7 days
-  },
+  }
 );
 
 export async function getGeoIPCloudflare(event: H3Event): Promise<GeoIP> {
