@@ -14,5 +14,5 @@ const json = Papa.parse(data.trim(), {
 
 writeFileSync(
   "./assets/datasets/country_codes.json",
-  JSON.stringify(json.data, null, 2)
+  JSON.stringify(json.data, null, 2),
 );

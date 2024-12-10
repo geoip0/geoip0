@@ -69,6 +69,9 @@ importers:
       vitest:
         specifier: 2.1.6
         version: 2.1.6(@types/node@22.10.1)(jiti@2.4.1)(terser@5.37.0)
+      whoiser:
+        specifier: 1.18.0
+        version: 1.18.0
 
   packages/rdap:
     dependencies:
@@ -4328,6 +4331,13 @@ packages:
       }
     engines: { node: ">= 0.6.0" }
 
+  punycode@2.3.1:
+    resolution:
+      {
+        integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==,
+      }
+    engines: { node: ">=6" }
+
   queue-microtask@1.2.3:
     resolution:
       {
@@ -5174,6 +5184,13 @@ packages:
       }
     engines: { node: ">= 8" }
     hasBin: true
+
+  whoiser@1.18.0:
+    resolution:
+      {
+        integrity: sha512-QRIGreBuouc8d9i+UVMFqYJSiG7gaoaGX8nKugYDGqnuNLLgjDBwmlKODOIGHveBawza3Kfkk/OuM9VsTUYwaA==,
+      }
+    engines: { node: ">=15.0.0" }
 
   why-is-node-running@2.3.0:
     resolution:
@@ -7645,6 +7662,8 @@ snapshots:
 
   process@0.11.10: {}
 
+  punycode@2.3.1: {}
+
   queue-microtask@1.2.3: {}
 
   queue-tick@1.0.1: {}
@@ -8203,6 +8222,10 @@ snapshots:
   which@2.0.2:
     dependencies:
       isexe: 2.0.0
+
+  whoiser@1.18.0:
+    dependencies:
+      punycode: 2.3.1
 
   why-is-node-running@2.3.0:
     dependencies:
