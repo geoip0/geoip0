@@ -1,7 +1,7 @@
 {
-  "name": "@geoip0/rdap",
-  "version": "0.0.4",
-  "description": "A modern RDAP (Registration Data Access Protocol) client.",
+  "name": "@geoip0/ipx",
+  "version": "0.0.1",
+  "description": "A powerful and efficient IP address manipulation library",
   "main": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
@@ -22,11 +22,13 @@
     "url": "git+https://github.com/geoip0/geoip0.git"
   },
   "keywords": [
-    "rdap",
-    "whois",
-    "domain",
     "ip",
-    "asn"
+    "ipv4",
+    "ipv6",
+    "cidr",
+    "subnet",
+    "network",
+    "address"
   ],
   "author": {
     "name": "Demo Macro",
@@ -37,9 +39,5 @@
   "bugs": {
     "url": "https://github.com/geoip0/geoip0/issues"
   },
-  "homepage": "https://github.com/geoip0/geoip0#readme",
-  "dependencies": {
-    "@geoip0/ipx": "workspace:*",
-    "ofetch": "1.4.1"
-  }
+  "homepage": "https://github.com/geoip0/geoip0#readme"
 }
